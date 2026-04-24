@@ -1,1 +1,843 @@
 
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FoodieExpress - Premium Food Delivery Platform</title>
+    <meta name="description" content="Fast, reliable food delivery service with real-time tracking. Available worldwide with local and international payment options.">
+    
+    <!-- SEO Meta Tags -->
+    <meta name="keywords" content="food delivery, online food order, restaurant delivery, foodieexpress, real-time tracking, UPI payment, international food delivery">
+    <meta name="author" content="Nitai Studio">
+    <meta name="robots" content="index, follow">
+    
+    <!-- Open Graph Tags -->
+    <meta property="og:title" content="FoodieExpress - Premium Food Delivery">
+    <meta property="og:description" content="Order food from your favorite restaurants with real-time tracking">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://foodieexpress.com">
+    <meta property="og:image" content="https://foodieexpress.com/assets/images/og-image.jpg">
+    
+    <!-- PWA Meta Tags -->
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#FF6B35">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="FoodieExpress">
+    <link rel="apple-touch-icon" href="assets/images/icons/icon-192x192.png">
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Styles -->
+    <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="stylesheet" href="assets/css/landing.css">
+    
+    <!-- Firebase SDK -->
+    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-storage-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-functions-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-messaging-compat.js"></script>
+</head>
+<body>
+    <!-- Splash Screen -->
+    <div id="splashScreen" class="splash-screen">
+        <div class="splash-content">
+            <div class="indian-flag">
+                <div class="flag-stripe saffron"></div>
+                <div class="flag-stripe white">
+                    <div class="ashoka-chakra">
+                        <svg width="40" height="40" viewBox="0 0 100 100">
+                            <circle cx="50" cy="50" r="40" fill="none" stroke="#000080" stroke-width="2"/>
+                            <circle cx="50" cy="50" r="3" fill="#000080"/>
+                            <line x1="50" y1="10" x2="50" y2="90" stroke="#000080" stroke-width="1"/>
+                            <line x1="10" y1="50" x2="90" y2="50" stroke="#000080" stroke-width="1"/>
+                            <line x1="22" y1="22" x2="78" y2="78" stroke="#000080" stroke-width="1"/>
+                            <line x1="78" y1="22" x2="22" y2="78" stroke="#000080" stroke-width="1"/>
+                        </svg>
+                    </div>
+                </div>
+                <div class="flag-stripe green"></div>
+            </div>
+            <h1 class="splash-text">Developed by Nitai Studio</h1>
+            <p class="splash-subtitle">Premium Food Delivery Solution</p>
+            <div class="splash-loader">
+                <div class="loader-bar"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Navigation -->
+    <nav class="navbar" id="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <img src="assets/images/logo.svg" alt="FoodieExpress" width="40" height="40">
+                <span class="logo-text">FoodieExpress</span>
+            </div>
+            
+            <div class="nav-links" id="navLinks">
+                <a href="#home" class="nav-link active">Home</a>
+                <a href="#features" class="nav-link">Features</a>
+                <a href="#how-it-works" class="nav-link">How It Works</a>
+                <a href="#payment-methods" class="nav-link">Payments</a>
+                <a href="#tracking" class="nav-link">Live Tracking</a>
+                <a href="#pricing" class="nav-link">Pricing</a>
+                <a href="#contact" class="nav-link">Contact</a>
+            </div>
+            
+            <div class="nav-actions">
+                <div class="language-selector">
+                    <select id="languageSelect" class="lang-select">
+                        <option value="en">🇬🇧 EN</option>
+                        <option value="hi">🇮🇳 HI</option>
+                        <option value="bn">🇧🇩 BN</option>
+                        <option value="es">🇪🇸 ES</option>
+                        <option value="ar">🇸🇦 AR</option>
+                    </select>
+                </div>
+                
+                <button class="theme-toggle" onclick="toggleTheme()" aria-label="Toggle theme">
+                    <span class="theme-icon">🌓</span>
+                </button>
+                
+                <button class="btn btn-primary btn-small" onclick="window.location.href='app/index.html'">
+                    🚀 Order Now
+                </button>
+                
+                <button class="btn btn-outline btn-small" onclick="window.location.href='rider/index.html'">
+                    🛵 Become Rider
+                </button>
+                
+                <button class="mobile-menu-btn" onclick="toggleMobileMenu()" aria-label="Menu">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero">
+        <div class="hero-bg-animation">
+            <div class="floating-element el-1">🍕</div>
+            <div class="floating-element el-2">🍔</div>
+            <div class="floating-element el-3">🍜</div>
+            <div class="floating-element el-4">🍣</div>
+            <div class="floating-element el-5">🥗</div>
+        </div>
+        
+        <div class="hero-container">
+            <div class="hero-content">
+                <div class="hero-badge">
+                    <span class="badge-icon">🏆</span>
+                    <span>#1 Food Delivery Platform 2024</span>
+                </div>
+                
+                <h1 class="hero-title">
+                    Delicious Food,
+                    <span class="gradient-text">Delivered Fast</span>
+                    <br>to Your Doorstep
+                </h1>
+                
+                <p class="hero-description">
+                    Experience lightning-fast food delivery with real-time tracking, 
+                    multiple payment options including UPI, Cards, and PayPal. 
+                    From local favorites to international cuisine, get it all delivered hot and fresh.
+                </p>
+                
+                <div class="hero-cta">
+                    <div class="cta-buttons">
+                        <button class="btn btn-primary btn-large pulse-animation" onclick="window.location.href='app/index.html'">
+                            🚀 Get Started Now
+                        </button>
+                        <button class="btn btn-outline btn-large" onclick="document.getElementById('demo-video').play()">
+                            ▶️ Watch Demo
+                        </button>
+                    </div>
+                    
+                    <div class="app-download">
+                        <p>📱 Install our PWA app - No App Store needed!</p>
+                        <button class="btn-install" id="installAppBtn" onclick="installPWA()">
+                            <span>📲</span> Add to Home Screen
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="hero-stats">
+                    <div class="stat-item">
+                        <div class="stat-number" data-count="500">0</div>
+                        <div class="stat-label">Restaurants</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number" data-count="50">0</div>
+                        <div class="stat-label">Cities</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number" data-count="100">0</div>
+                        <div class="stat-label">Daily Orders</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number" data-count="30">0</div>
+                        <div class="stat-label">Min Delivery</div>
+                    </div>
+                </div>
+                
+                <div class="hero-trust">
+                    <div class="trust-badges">
+                        <span>🔒 Secure Payments</span>
+                        <span>⚡ Fast Delivery</span>
+                        <span>⭐ 4.8 Rating</span>
+                        <span>🌍 Global Service</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="hero-visual">
+                <div class="hero-phone-mockup">
+                    <div class="phone-frame">
+                        <div class="phone-notch"></div>
+                        <div class="phone-screen">
+                            <div class="app-preview">
+                                <div class="preview-header">
+                                    <span>FoodieExpress</span>
+                                    <span>🍔</span>
+                                </div>
+                                
+                                <div class="preview-search">
+                                    <input type="text" placeholder="Search food..." disabled>
+                                </div>
+                                
+                                <div class="preview-categories">
+                                    <div class="preview-cat">🍕 Pizza</div>
+                                    <div class="preview-cat">🍔 Burger</div>
+                                    <div class="preview-cat">🍜 Noodles</div>
+                                </div>
+                                
+                                <div class="preview-restaurants">
+                                    <div class="preview-restaurant">
+                                        <div class="rest-img"></div>
+                                        <div class="rest-info">
+                                            <h5>Punjab Grill</h5>
+                                            <p>⭐ 4.5 • 30 min</p>
+                                        </div>
+                                    </div>
+                                    <div class="preview-restaurant">
+                                        <div class="rest-img"></div>
+                                        <div class="rest-info">
+                                            <h5>Sushi Paradise</h5>
+                                            <p>⭐ 4.8 • 35 min</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div class="preview-tracking">
+                                    <div class="tracking-bar">
+                                        <div class="track-progress"></div>
+                                    </div>
+                                    <p>🏍️ Your rider is nearby...</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="phone-home-btn"></div>
+                    </div>
+                </div>
+                
+                <div class="floating-cards">
+                    <div class="float-card card-1">
+                        <div class="card-icon">🔥</div>
+                        <div class="card-content">
+                            <h4>Hot Deals</h4>
+                            <p>50% OFF on first order</p>
+                        </div>
+                    </div>
+                    <div class="float-card card-2">
+                        <div class="card-icon">⚡</div>
+                        <div class="card-content">
+                            <h4>Express Delivery</h4>
+                            <p>Under 20 minutes</p>
+                        </div>
+                    </div>
+                    <div class="float-card card-3">
+                        <div class="card-icon">💎</div>
+                        <div class="card-content">
+                            <h4>Premium Quality</h4>
+                            <p>Top rated restaurants</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="hero-wave">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320">
+                <path fill="var(--white)" fill-opacity="1" d="M0,96L48,112C96,128,192,160,288,186.7C384,213,480,235,576,224C672,213,768,171,864,149.3C960,128,1056,128,1152,149.3C1248,171,1344,213,1392,234.7L1440,256L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"></path>
+            </svg>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section id="features" class="features">
+        <div class="section-container">
+            <div class="section-header">
+                <span class="section-badge">✨ Features</span>
+                <h2 class="section-title">Why Choose FoodieExpress?</h2>
+                <p class="section-subtitle">Everything you need for the perfect food delivery experience</p>
+            </div>
+            
+            <div class="features-grid">
+                <div class="feature-card" data-aos="fade-up">
+                    <div class="feature-icon-wrapper">
+                        <div class="feature-icon">🛵</div>
+                    </div>
+                    <h3>Lightning Fast Delivery</h3>
+                    <p>Average delivery time of 30 minutes with our AI-optimized routing system that finds the fastest path</p>
+                    <div class="feature-stat">99.5% On-Time Rate</div>
+                </div>
+                
+                <div class="feature-card" data-aos="fade-up" data-aos-delay="100">
+                    <div class="feature-icon-wrapper">
+                        <div class="feature-icon">📍</div>
+                    </div>
+                    <h3>Real-time GPS Tracking</h3>
+                    <p>Track your order live on OpenStreetMap from restaurant to your doorstep with smooth animations</p>
+                    <div class="feature-stat">Updates Every 5 Seconds</div>
+                </div>
+                
+                <div class="feature-card" data-aos="fade-up" data-aos-delay="200">
+                    <div class="feature-icon-wrapper">
+                        <div class="feature-icon">💳</div>
+                    </div>
+                    <h3>Multiple Payment Options</h3>
+                    <p>Pay via UPI, Credit/Debit Cards, PayPal, Stripe, Razorpay, Cash on Delivery, or Wallet</p>
+                    <div class="feature-stat">10+ Payment Methods</div>
+                </div>
+                
+                <div class="feature-card" data-aos="fade-up" data-aos-delay="300">
+                    <div class="feature-icon-wrapper">
+                        <div class="feature-icon">💬</div>
+                    </div>
+                    <h3>Live Chat Support</h3>
+                    <p>Direct communication with delivery riders and 24/7 customer support team</p>
+                    <div class="feature-stat">Response in < 2 Minutes</div>
+                </div>
+                
+                <div class="feature-card" data-aos="fade-up" data-aos-delay="400">
+                    <div class="feature-icon-wrapper">
+                        <div class="feature-icon">🌍</div>
+                    </div>
+                    <h3>Global + Local Service</h3>
+                    <p>Available worldwide with local payment integration. Auto-detects your country for best experience</p>
+                    <div class="feature-stat">50+ Countries</div>
+                </div>
+                
+                <div class="feature-card" data-aos="fade-up" data-aos-delay="500">
+                    <div class="feature-icon-wrapper">
+                        <div class="feature-icon">📱</div>
+                    </div>
+                    <h3>PWA Technology</h3>
+                    <p>Install on any device without App Store. Works offline, loads instantly, and uses less storage</p>
+                    <div class="feature-stat">4.8★ App Rating</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- How It Works Section -->
+    <section id="how-it-works" class="how-it-works">
+        <div class="section-container">
+            <div class="section-header">
+                <span class="section-badge">📋 Process</span>
+                <h2 class="section-title">How FoodieExpress Works</h2>
+                <p class="section-subtitle">Get your favorite food delivered in 4 simple steps</p>
+            </div>
+            
+            <div class="steps-container">
+                <div class="step-item" data-aos="fade-right">
+                    <div class="step-number">1</div>
+                    <div class="step-icon">🔍</div>
+                    <h3>Browse & Search</h3>
+                    <p>Search your favorite restaurants or browse by cuisine, rating, or location</p>
+                </div>
+                
+                <div class="step-connector">
+                    <div class="connector-line"></div>
+                </div>
+                
+                <div class="step-item" data-aos="fade-right" data-aos-delay="100">
+                    <div class="step-number">2</div>
+                    <div class="step-icon">🛒</div>
+                    <h3>Add to Cart</h3>
+                    <p>Select your favorite dishes, customize them, and add to your cart</p>
+                </div>
+                
+                <div class="step-connector">
+                    <div class="connector-line"></div>
+                </div>
+                
+                <div class="step-item" data-aos="fade-right" data-aos-delay="200">
+                    <div class="step-number">3</div>
+                    <div class="step-icon">💳</div>
+                    <h3>Pay Your Way</h3>
+                    <p>Choose from UPI, Cards, PayPal, Stripe, COD, or Wallet payment</p>
+                </div>
+                
+                <div class="step-connector">
+                    <div class="connector-line"></div>
+                </div>
+                
+                <div class="step-item" data-aos="fade-right" data-aos-delay="300">
+                    <div class="step-number">4</div>
+                    <div class="step-icon">🏍️</div>
+                    <h3>Track & Enjoy</h3>
+                    <p>Track your delivery in real-time and enjoy hot, fresh food at your doorstep</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Payment Methods Section -->
+    <section id="payment-methods" class="payment-methods-section">
+        <div class="section-container">
+            <div class="section-header">
+                <span class="section-badge">💳 Payments</span>
+                <h2 class="section-title">Secure Payment Options</h2>
+                <p class="section-subtitle">Multiple payment methods with automatic country detection</p>
+            </div>
+            
+            <div class="payment-tabs">
+                <button class="payment-tab active" onclick="showPaymentTab('india')">
+                    🇮🇳 India Payments
+                </button>
+                <button class="payment-tab" onclick="showPaymentTab('international')">
+                    🌍 International Payments
+                </button>
+            </div>
+            
+            <div class="payment-tab-content active" id="india-payments">
+                <div class="payment-grid">
+                    <div class="payment-card">
+                        <div class="payment-card-icon">
+                            <img src="assets/images/upi/upi-icon.png" alt="UPI">
+                        </div>
+                        <h4>UPI Payments</h4>
+                        <p>Google Pay, PhonePe, Paytm, BHIM</p>
+                        <span class="payment-tag">Instant</span>
+                    </div>
+                    
+                    <div class="payment-card">
+                        <div class="payment-card-icon">💳</div>
+                        <h4>Razorpay</h4>
+                        <p>Credit/Debit Cards, NetBanking</p>
+                        <span class="payment-tag">Secure</span>
+                    </div>
+                    
+                    <div class="payment-card">
+                        <div class="payment-card-icon">🏦</div>
+                        <h4>PayU</h4>
+                        <p>All Banks, Cards, UPI</p>
+                        <span class="payment-tag">Trusted</span>
+                    </div>
+                    
+                    <div class="payment-card">
+                        <div class="payment-card-icon">🔐</div>
+                        <h4>CCAvenue</h4>
+                        <p>Multi-bank EMI, Cards</p>
+                        <span class="payment-tag">Popular</span>
+                    </div>
+                    
+                    <div class="payment-card">
+                        <div class="payment-card-icon">⚡</div>
+                        <h4>Cashfree</h4>
+                        <p>Instant settlements</p>
+                        <span class="payment-tag">Fast</span>
+                    </div>
+                    
+                    <div class="payment-card">
+                        <div class="payment-card-icon">📱</div>
+                        <h4>Instamojo</h4>
+                        <p>UPI, Cards, NetBanking</p>
+                        <span class="payment-tag">Simple</span>
+                    </div>
+                    
+                    <div class="payment-card">
+                        <div class="payment-card-icon">💰</div>
+                        <h4>Wallet</h4>
+                        <p>FoodieExpress Wallet</p>
+                        <span class="payment-tag">2% Cashback</span>
+                    </div>
+                    
+                    <div class="payment-card">
+                        <div class="payment-card-icon">💵</div>
+                        <h4>Cash on Delivery</h4>
+                        <p>Pay when you receive</p>
+                        <span class="payment-tag">No Advance</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="payment-tab-content" id="international-payments">
+                <div class="payment-grid">
+                    <div class="payment-card">
+                        <div class="payment-card-icon">💳</div>
+                        <h4>Stripe</h4>
+                        <p>International Cards, Apple Pay</p>
+                        <span class="payment-tag">Global</span>
+                    </div>
+                    
+                    <div class="payment-card">
+                        <div class="payment-card-icon">🅿️</div>
+                        <h4>PayPal</h4>
+                        <p>190+ Countries, 25 Currencies</p>
+                        <span class="payment-tag">Worldwide</span>
+                    </div>
+                    
+                    <div class="payment-card">
+                        <div class="payment-card-icon">🌍</div>
+                        <h4>2Checkout</h4>
+                        <p>87+ Currencies, Global Cards</p>
+                        <span class="payment-tag">Universal</span>
+                    </div>
+                    
+                    <div class="payment-card">
+                        <div class="payment-card-icon">🔒</div>
+                        <h4>Authorize.Net</h4>
+                        <p>Visa, Mastercard, Amex, Discover</p>
+                        <span class="payment-tag">Secure</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Live Tracking Demo Section -->
+    <section id="tracking" class="tracking-demo">
+        <div class="section-container">
+            <div class="section-header">
+                <span class="section-badge">📍 Live Demo</span>
+                <h2 class="section-title">See Real-Time Tracking in Action</h2>
+                <p class="section-subtitle">Watch how we track deliveries live on the map</p>
+            </div>
+            
+            <div class="tracking-showcase">
+                <div class="map-container" id="demoMap">
+                    <div class="map-overlay">
+                        <div class="tracking-demo-info">
+                            <div class="rider-card-demo">
+                                <img src="assets/images/rider-avatar.svg" alt="Rider" class="rider-avatar">
+                                <div class="rider-details">
+                                    <h4>Rahul Kumar</h4>
+                                    <p>Your Delivery Partner</p>
+                                    <div class="rider-rating">⭐ 4.8</div>
+                                </div>
+                                <button class="btn-call" onclick="window.location.href='tel:+919876543210'">
+                                    📞 Call
+                                </button>
+                            </div>
+                            
+                            <div class="delivery-progress-demo">
+                                <div class="progress-step completed">
+                                    <div class="step-icon">✅</div>
+                                    <p>Order Confirmed</p>
+                                </div>
+                                <div class="progress-step completed">
+                                    <div class="step-icon">🍳</div>
+                                    <p>Preparing Food</p>
+                                </div>
+                                <div class="progress-step active pulse">
+                                    <div class="step-icon">🏍️</div>
+                                    <p>Out for Delivery</p>
+                                </div>
+                                <div class="progress-step">
+                                    <div class="step-icon">🏠</div>
+                                    <p>Delivered</p>
+                                </div>
+                            </div>
+                            
+                            <div class="eta-display">
+                                <h3>Estimated Arrival</h3>
+                                <div class="eta-timer">
+                                    <span class="eta-minutes">15</span>
+                                    <span class="eta-label">minutes</span>
+                                </div>
+                                <div class="eta-distance">🏍️ 2.5 km away</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Pricing Section -->
+    <section id="pricing" class="pricing">
+        <div class="section-container">
+            <div class="section-header">
+                <span class="section-badge">💎 Pricing</span>
+                <h2 class="section-title">Choose Your Perfect Plan</h2>
+                <p class="section-subtitle">Start for free, upgrade as you grow</p>
+            </div>
+            
+            <div class="pricing-toggle">
+                <span>Monthly</span>
+                <label class="toggle-switch">
+                    <input type="checkbox" id="pricingToggle" onchange="togglePricing()">
+                    <span class="toggle-slider"></span>
+                </label>
+                <span>Yearly</span>
+                <span class="save-badge">Save 20%</span>
+            </div>
+            
+            <div class="pricing-grid">
+                <div class="pricing-card">
+                    <div class="pricing-header">
+                        <h3>Starter</h3>
+                        <p>Perfect for small restaurants</p>
+                    </div>
+                    <div class="pricing-amount">
+                        <span class="currency">₹</span>
+                        <span class="amount monthly">999</span>
+                        <span class="amount yearly" style="display:none;">799</span>
+                        <span class="period">/month</span>
+                    </div>
+                    <ul class="pricing-features">
+                        <li>✅ Up to 100 orders/day</li>
+                        <li>✅ Basic real-time tracking</li>
+                        <li>✅ Email support</li>
+                        <li>✅ 1 admin account</li>
+                        <li>✅ Basic analytics</li>
+                        <li>✅ Payment gateway integration</li>
+                    </ul>
+                    <button class="btn btn-outline btn-block">Start Free Trial</button>
+                </div>
+                
+                <div class="pricing-card featured">
+                    <div class="popular-badge">🔥 Most Popular</div>
+                    <div class="pricing-header">
+                        <h3>Professional</h3>
+                        <p>For growing businesses</p>
+                    </div>
+                    <div class="pricing-amount">
+                        <span class="currency">₹</span>
+                        <span class="amount monthly">2,499</span>
+                        <span class="amount yearly" style="display:none;">1,999</span>
+                        <span class="period">/month</span>
+                    </div>
+                    <ul class="pricing-features">
+                        <li>✅ Unlimited orders</li>
+                        <li>✅ Advanced GPS tracking</li>
+                        <li>✅ Priority 24/7 support</li>
+                        <li>✅ 5 admin accounts</li>
+                        <li>✅ Advanced analytics</li>
+                        <li>✅ Multiple payment gateways</li>
+                        <li>✅ Custom branding</li>
+                        <li>✅ UPI verification system</li>
+                    </ul>
+                    <button class="btn btn-primary btn-block">Start Free Trial</button>
+                </div>
+                
+                <div class="pricing-card">
+                    <div class="pricing-header">
+                        <h3>Enterprise</h3>
+                        <p>For large food chains</p>
+                    </div>
+                    <div class="pricing-amount">
+                        <span class="currency">₹</span>
+                        <span class="amount monthly">4,999</span>
+                        <span class="amount yearly" style="display:none;">3,999</span>
+                        <span class="period">/month</span>
+                    </div>
+                    <ul class="pricing-features">
+                        <li>✅ Everything in Professional</li>
+                        <li>✅ Dedicated server</li>
+                        <li>✅ 24/7 phone support</li>
+                        <li>✅ Unlimited admins</li>
+                        <li>✅ API access</li>
+                        <li>✅ White-label solution</li>
+                        <li>✅ International payments</li>
+                        <li>✅ Custom integrations</li>
+                    </ul>
+                    <button class="btn btn-outline btn-block">Contact Sales</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials Section -->
+    <section class="testimonials">
+        <div class="section-container">
+            <div class="section-header">
+                <span class="section-badge">💬 Testimonials</span>
+                <h2 class="section-title">What Our Customers Say</h2>
+            </div>
+            
+            <div class="testimonials-grid">
+                <div class="testimonial-card">
+                    <div class="testimonial-rating">⭐⭐⭐⭐⭐</div>
+                    <p class="testimonial-text">"FoodieExpress revolutionized our restaurant delivery. The real-time tracking and multiple payment options are game-changers!"</p>
+                    <div class="testimonial-author">
+                        <img src="assets/images/user1.jpg" alt="User">
+                        <div>
+                            <h4>Priya Sharma</h4>
+                            <p>Restaurant Owner, Mumbai</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="testimonial-card">
+                    <div class="testimonial-rating">⭐⭐⭐⭐⭐</div>
+                    <p class="testimonial-text">"As a customer, I love the UPI payment option and real-time tracking. The wallet cashback is a great bonus!"</p>
+                    <div class="testimonial-author">
+                        <img src="assets/images/user2.jpg" alt="User">
+                        <div>
+                            <h4>Arjun Patel</h4>
+                            <p>Regular Customer, Delhi</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="testimonial-card">
+                    <div class="testimonial-rating">⭐⭐⭐⭐⭐</div>
+                    <p class="testimonial-text">"Using FoodieExpress for our international food chain was the best decision. Stripe and PayPal integration works flawlessly!"</p>
+                    <div class="testimonial-author">
+                        <img src="assets/images/user3.jpg" alt="User">
+                        <div>
+                            <h4>John Smith</h4>
+                            <p>CEO, GlobalFoods UK</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta">
+        <div class="cta-bg-particles">
+            <div class="particle"></div>
+            <div class="particle"></div>
+            <div class="particle"></div>
+        </div>
+        <div class="cta-container">
+            <h2>Ready to Transform Your Food Delivery Business?</h2>
+            <p>Join thousands of restaurants already using FoodieExpress. Start with our free trial today!</p>
+            <div class="cta-buttons">
+                <button class="btn btn-white btn-large" onclick="window.location.href='app/index.html'">
+                    🚀 Try Free Demo
+                </button>
+                <button class="btn btn-outline-white btn-large" onclick="window.location.href='#pricing'">
+                    💎 View Plans
+                </button>
+                <button class="btn btn-outline-white btn-large" onclick="window.location.href='admin/index.html'">
+                    🖥️ Admin Demo
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-grid">
+                <div class="footer-brand">
+                    <img src="assets/images/logo.svg" alt="FoodieExpress" width="50">
+                    <h3>FoodieExpress</h3>
+                    <p>Premium food delivery platform for modern businesses. Built with ❤️ by Nitai Studio.</p>
+                    <div class="social-links">
+                        <a href="#" title="Facebook">📘</a>
+                        <a href="#" title="Twitter">𝕏</a>
+                        <a href="#" title="Instagram">📷</a>
+                        <a href="#" title="LinkedIn">💼</a>
+                        <a href="#" title="YouTube">▶️</a>
+                    </div>
+                </div>
+                
+                <div class="footer-links">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="#features">Features</a></li>
+                        <li><a href="#pricing">Pricing</a></li>
+                        <li><a href="#payment-methods">Payment Methods</a></li>
+                        <li><a href="app/index.html">Order Food</a></li>
+                        <li><a href="rider/index.html">Become Rider</a></li>
+                        <li><a href="admin/index.html">Admin Panel</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-links">
+                    <h4>Support</h4>
+                    <ul>
+                        <li><a href="admin/settings.html">Privacy Policy</a></li>
+                        <li><a href="admin/settings.html">Refund Policy</a></li>
+                        <li><a href="admin/settings.html">Terms & Conditions</a></li>
+                        <li><a href="admin/settings.html">About Us</a></li>
+                        <li><a href="#contact">Contact Us</a></li>
+                        <li><a href="#">FAQ</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-contact">
+                    <h4>Contact Info</h4>
+                    <div class="contact-item">
+                        <span>📧</span>
+                        <p>support@foodieexpress.com</p>
+                    </div>
+                    <div class="contact-item">
+                        <span>📞</span>
+                        <p>+91 98765 43210</p>
+                    </div>
+                    <div class="contact-item">
+                        <span>📍</span>
+                        <p>Mumbai, Maharashtra, India</p>
+                    </div>
+                    <div class="footer-payment-icons">
+                        <span>💳</span>
+                        <span>📱</span>
+                        <span>🅿️</span>
+                        <span>🏦</span>
+                        <span>🔒</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; 2024 FoodieExpress. Developed with ❤️ by <strong>Nitai Studio</strong>. All rights reserved.</p>
+                <p class="footer-disclaimer">All payment gateways are securely integrated. Your data is protected with 256-bit encryption.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- PWA Install Prompt -->
+    <div id="installPrompt" class="install-prompt" style="display: none;">
+        <div class="install-content">
+            <div class="install-icon">📲</div>
+            <div class="install-text">
+                <h4>Install FoodieExpress</h4>
+                <p>Add to Home Screen for faster access and offline use</p>
+            </div>
+            <button onclick="installPWA()" class="btn btn-primary">Install Now</button>
+            <button onclick="dismissInstall()" class="btn-close">✕</button>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="firebase/config.js"></script>
+    <script src="assets/js/landing.js"></script>
+    <script>
+        // Initialize
+        window.addEventListener('load', () => {
+            setTimeout(() => {
+                document.getElementById('splashScreen').style.opacity = '0';
+                setTimeout(() => {
+                    document.getElementById('splashScreen').style.display = 'none';
+                }, 500);
+            }, 2000);
+        });
+    </script>
+</body>
+</html>
